@@ -1,17 +1,23 @@
-# WASMAudio
+# Project Foundations
 
-Trying to work out how to get audio going with WASM
+This is a project foundation for C++
 
-Initial steps to setup the C++ system ... WASM later
-
-# Initial Setup (native C++)
+# Initial Setup
 
 ./tools/autotools.sh
 
-# configuring (native C++)
+# configuring
 
 ./configure
 
-# building (native C++)
+# building
 
 make
+
+# install
+
+make install
+
+# uninstal
+
+make uninstall

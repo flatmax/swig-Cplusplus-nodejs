@@ -1,4 +1,4 @@
-# Copyright (c) 2017 The WASMAudio Authors. All rights reserved.
+# Copyright (c) 2017 The Project Foundations Authors. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
@@ -26,12 +26,12 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-m4_define([wasm_audio_current_version], [0]) # ++ if API added (age++), removed, or changed (age=0)
-m4_define([wasm_audio_revision_version], [0]) # ++ if API same but src code change
-m4_define([wasm_audio_age_version], [0]) # ++ if API added since last release, if API removed or changed then age=0
-m4_define([wasm_audio_version], [wasm_audio_current_version.wasm_audio_revision_version.wasm_audio_age_version])
+m4_define([project_current_version], [0]) # ++ if API added (age++), removed, or changed (age=0)
+m4_define([project_revision_version], [0]) # ++ if API same but src code change
+m4_define([project_age_version], [0]) # ++ if API added since last release, if API removed or changed then age=0
+m4_define([project_version], [project_current_version.project_revision_version.project_age_version])
 
-AC_INIT( wasm_audio, [wasm_audio_version], [ https://github.com/madChopsCoderAu/WASMAudio/issues ])
+AC_INIT( C++, [C++_version], [ https://github.com/madChopsCoderAu/Project Foundations/issues ])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([include/Test.H])
 AC_CONFIG_HEADERS([config.h])
@@ -39,8 +39,8 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_PREFIX_DEFAULT(/usr)
 
 LT_INIT
-AC_SUBST(LT_RELEASE, [wasm_audio_version])
-AC_SUBST(LT_CURRENT, [wasm_audio_current_version:wasm_audio_revision_version:wasm_audio_age_version])
+AC_SUBST(LT_RELEASE, [project_version])
+AC_SUBST(LT_CURRENT, [project_current_version:project_revision_version:project_age_version])
 
 AC_PROG_CXX
 

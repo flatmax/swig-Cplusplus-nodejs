@@ -1,4 +1,4 @@
-// Copyright (c) 2017 The WASM audio Authors. All rights reserved.
+// Copyright (c) 2017 The Project Foundations Authors. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -39,7 +39,7 @@ public:
 
   /** Destructor
   */
-  ~Test();
+  virtual ~Test();
 };
 
 #endif // TEST_H_
