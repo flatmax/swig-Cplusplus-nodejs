@@ -27,7 +27,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 AUTOMAKE_OPTIONS = foreign subdir-objects
-SUBDIRS = src test api
+SUBDIRS = src swig test api
 
 ACLOCAL_AMFLAGS = -I m4
 

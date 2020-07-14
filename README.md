@@ -18,6 +18,6 @@ make
 
 make install
 
-# uninstal
+# uninstall
 
 make uninstall

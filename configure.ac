@@ -31,7 +31,7 @@ m4_define([project_revision_version], [0]) # ++ if API same but src code change
 m4_define([project_age_version], [0]) # ++ if API added since last release, if API removed or changed then age=0
 m4_define([project_version], [project_current_version.project_revision_version.project_age_version])
 
-AC_INIT( C++, [C++_version], [ https://github.com/madChopsCoderAu/Project Foundations/issues ])
+AC_INIT( swig_C++_nodejs, [swig_C++_nodejs_version], [ https://github.com/madChopsCoderAu/Project Foundations/issues ])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([include/Test.H])
 AC_CONFIG_HEADERS([config.h])
@@ -66,20 +66,32 @@ AC_SUBST([AM_CXXFLAGS], ["-s DEMANGLE_SUPPORT=1 -std=c++11 -O3 -fno-exceptions -
 AC_DEFINE(HAVE_EMSCRIPTEN, [], [whether building for emsdk])
 fi
 
-# eigen3
-PKG_CHECK_MODULES(EIGEN, eigen3 >= 3.0.0, HAVE_EIGEN="yes", HAVE_EIGEN="no")
-AC_SUBST(EIGEN_CFLAGS)
-AC_SUBST(EIGEN_LIBS)
-AM_CONDITIONAL(HAVE_EIGEN, test x$HAVE_EIGEN = xyes)
-if test "x$HAVE_EIGEN" == xyes ; then
-    AC_DEFINE(HAVE_EIGEN, [], [whether to build in Eigen support])
+AC_CHECK_LIB(node, atexit, HAVE_LIBNODE="yes", HAVE_LIBNODE="no")
+AM_CONDITIONAL(HAVE_LIBNODE, test x$HAVE_LIBNODE = xyes)
+if test "x$HAVE_LIBNODE" == xyes ; then
+    AC_DEFINE(HAVE_LIBNODE, [], [whether to build in libnode support])
 fi
+
+AC_ARG_WITH([node-include-path],
+[--with-node-include-path location of the nodejs headers, defaults to /usr/local/nodejs6/include/node],
+[NODE_CFLAGS="-I$withval"],
+[NODE_CFLAGS='-I/usr/include/nodejs/src -I/usr/include/nodejs/deps/v8/include'])
+AC_SUBST(NODE_CFLAGS)
+
+AC_ARG_WITH([swig-path],
+[--with-swig-path location of the swig cmd, defaults to ""],
+[SWIG_PATH="$withval"],
+[SWIG_PATH=""])
+AC_SUBST(SWIG_PATH)
+
+AC_ARG_WITH([swig-include-path],
+[--with-swig-include-path location of the include directories, defaults to ],
+[SWIG_INCLUDE_PATH="$withval"],
+[SWIG_INCLUDE_PATH="-I/usr/include"])
+AC_SUBST(SWIG_INCLUDE_PATH)
 
 AC_C_INLINE
 AC_FUNC_ERROR_AT_LINE
 
-AC_CONFIG_FILES([Makefile api/Makefile src/Makefile test/Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile swig/Makefile api/Makefile test/Makefile])
 AC_OUTPUT
-
-AM_COND_IF(HAVE_EIGEN, [AC_MSG_NOTICE([Eigen   ....................................... Present])], [AC_MSG_NOTICE([Eigen   ......................................... Not present
-Eigen tests and applications will not be built.])])
