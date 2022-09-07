@@ -4,7 +4,7 @@ This is a project foundation for C++ SWIG and nodejs. It is based on autotools a
 
 # Initial Setup
 
-./tools/autotools.sh
+./autogen.sh
 
 # configuring
 
