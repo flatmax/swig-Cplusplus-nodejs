@@ -14,6 +14,13 @@ This is a project foundation for C++ SWIG and nodejs. It is based on autotools a
 
 make
 
+# running
+
+```
+cd test
+./RunTest.js
+```
+
 # install
 
 make install
