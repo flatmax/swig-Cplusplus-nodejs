@@ -32,3 +32,16 @@
 %}
 
 %include "Test.H"
+
+%extend Test {
+
+  void setupCallback(){
+    v8::Local<v8::Function> theFunction;
+    v8::Local<v8::Value> fnObj = SWIGV8_CURRENT_CONTEXT()->Global()->Get(SWIGV8_CURRENT_CONTEXT(), v8::String::NewFromUtf8(v8::Isolate::GetCurrent(), "Mixer.fnName")).ToLocalChecked();
+
+    if (!fnObj->IsFunction())
+      printf("setupCallback : error no function found");
+
+    theFunction = v8::Local<v8::Function>::Cast(fnObj);
+  }
+}
