@@ -31,17 +31,33 @@
 #include "Test.H"
 %}
 
+%include "std_string.i"
 %include "Test.H"
 
 %extend Test {
 
-  void setupCallback(){
-    v8::Local<v8::Function> theFunction;
-    v8::Local<v8::Value> fnObj = SWIGV8_CURRENT_CONTEXT()->Global()->Get(SWIGV8_CURRENT_CONTEXT(), v8::String::NewFromUtf8(v8::Isolate::GetCurrent(), "Mixer.fnName")).ToLocalChecked();
+  void setCallback(const std::string& fnName){
+    SWIGV8_HANDLESCOPE();
 
-    if (!fnObj->IsFunction())
-      printf("setupCallback : error no function found");
+    v8::Isolate* isolate = v8::Isolate::GetCurrent();
 
-    theFunction = v8::Local<v8::Function>::Cast(fnObj);
+    v8::Local<v8::Value> fnObj = SWIGV8_CURRENT_CONTEXT()->Global()->Get(SWIGV8_CURRENT_CONTEXT(), v8::String::NewFromUtf8(isolate, fnName.c_str())).ToLocalChecked();
+
+    if (!fnObj->IsFunction()){
+      printf("setupCallback : error no function found\n");
+      return;
+    } else
+      printf("setupCallback : %s function found\n", fnName.c_str());
+
+    v8::Local<v8::Function> func = v8::Local<v8::Function>::Cast(fnObj);
+    theFunction.Reset(isolate, func);
+
+    v8::Local<v8::Function> func2 = v8::Local<v8::Function>::New(isolate, theFunction);
+    if (!func2.IsEmpty()) {
+      const unsigned argc = 1;
+      v8::Local<v8::Value> argv[argc] = { v8::String::NewFromUtf8(isolate, "hello world") };
+      v8::Local<v8::Value> ret;
+      func2->Call(SWIGV8_CURRENT_CONTEXT(), ret, argc, argv);
+     }
   }
 }
