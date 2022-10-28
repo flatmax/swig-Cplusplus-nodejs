@@ -34,30 +34,4 @@
 %include "std_string.i"
 %include "Test.H"
 
-%extend Test {
-
-  void setCallback(const std::string& fnName){
-    SWIGV8_HANDLESCOPE();
-
-    v8::Isolate* isolate = v8::Isolate::GetCurrent();
-
-    v8::Local<v8::Value> fnObj = SWIGV8_CURRENT_CONTEXT()->Global()->Get(SWIGV8_CURRENT_CONTEXT(), v8::String::NewFromUtf8(isolate, fnName.c_str())).ToLocalChecked();
-
-    if (!fnObj->IsFunction()){
-      printf("setupCallback : error no function found\n");
-      return;
-    } else
-      printf("setupCallback : %s function found\n", fnName.c_str());
-
-    v8::Local<v8::Function> func = v8::Local<v8::Function>::Cast(fnObj);
-    theFunction.Reset(isolate, func);
-
-    v8::Local<v8::Function> func2 = v8::Local<v8::Function>::New(isolate, theFunction);
-    if (!func2.IsEmpty()) {
-      const unsigned argc = 1;
-      v8::Local<v8::Value> argv[argc] = { v8::String::NewFromUtf8(isolate, "hello world") };
-      v8::Local<v8::Value> ret;
-      func2->Call(SWIGV8_CURRENT_CONTEXT(), ret, argc, argv);
-     }
-  }
-}
+%insert("wrapper") "nativeCode.C"

@@ -37,7 +37,7 @@ nodejs_LDFLAGS = -version-info $(LT_CURRENT) -rpath=. -rdynamic -Bstatic -export
 nodejs_LDFLAGS +=
 
 %_wrap.cxx: %.i
-	$(SWIG_PATH)swig $(SWIG_INCLUDE_PATH) -I../include -c++ -javascript -node $<
+	$(SWIG_PATH)swig $(SWIG_INCLUDE_PATH) -I../include -c++ -javascript -node $<; ./sedCXX.sh $@
 
 BUILT_SOURCES =
 CLEANFILES = Makefile.in
@@ -48,7 +48,7 @@ if HAVE_LIBNODE
 lib_LTLIBRARIES += libSwigCNodejs.la
 BUILT_SOURCES += swigCNodejs_wrap.cxx
 CLEANFILES += swigCNodejs_wrap.cxx
-swigCNodejs_wrap.cxx: ../include/Test.H
+swigCNodejs_wrap.cxx: ../include/Test.H nativeCode.C
 endif
 
 libSwigCNodejs_la_SOURCES = swigCNodejs_wrap.cxx

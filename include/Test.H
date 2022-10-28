@@ -44,6 +44,11 @@ public:
   /** Destructor
   */
   virtual ~Test();
-};
 
+  // this is a dummy function to get sed to generate a wrapper which can be replaced - helps with the inaccessible v8 lifecycle
+  void setFn(){}
+
+  // this is a dummy function to get sed to generate a wrapper which can be replaced - helps with the inaccessible v8 lifecycle
+  void callFn(){}
+};
 #endif // TEST_H_
