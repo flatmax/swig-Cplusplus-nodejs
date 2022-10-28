@@ -56,8 +56,7 @@
     if (!func2.IsEmpty()) {
       const unsigned argc = 1;
       v8::Local<v8::Value> argv[argc] = { v8::String::NewFromUtf8(isolate, "hello world") };
-      v8::Local<v8::Value> ret;
-      func2->Call(SWIGV8_CURRENT_CONTEXT(), ret, argc, argv);
+      func2->Call(SWIGV8_CURRENT_CONTEXT(), func2, argc, argv);
      }
   }
 }
