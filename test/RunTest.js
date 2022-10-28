@@ -6,5 +6,6 @@ global.fnName = function (str) {
   console.log(str);
 }
 
+test.callCallback();
 test.setCallback("fnName");
 test.callCallback();

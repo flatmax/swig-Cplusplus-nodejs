@@ -37,11 +37,9 @@
 %extend Test {
 
   void setCallback(const std::string& fnName){
-    SWIGV8_HANDLESCOPE();
-
     v8::Isolate* isolate = v8::Isolate::GetCurrent();
 
-    v8::Local<v8::Value> fnObj = SWIGV8_CURRENT_CONTEXT()->Global()->Get(SWIGV8_CURRENT_CONTEXT(), v8::String::NewFromUtf8(isolate, fnName.c_str())).ToLocalChecked();
+    SWIGV8_VALUE fnObj = SWIGV8_CURRENT_CONTEXT()->Global()->Get(SWIGV8_CURRENT_CONTEXT(), SWIGV8_STRING_NEW(fnName.c_str())).ToLocalChecked();
 
     if (!fnObj->IsFunction()){
       printf("setupCallback : error no function found\n");
@@ -54,15 +52,13 @@
   }
 
   void callCallback(){
-    SWIGV8_HANDLESCOPE();
-
-    v8::Isolate* isolate = v8::Isolate::GetCurrent();
-
-    v8::Local<v8::Function> func = v8::Local<v8::Function>::New(isolate, self->theFunction);
+    v8::Local<v8::Function> func = v8::Local<v8::Function>::New(v8::Isolate::GetCurrent(), self->theFunction);
     if (!func.IsEmpty()) {
       const unsigned argc = 1;
-      v8::Local<v8::Value> argv[argc] = { v8::String::NewFromUtf8(isolate, "hello world") };
+      SWIGV8_VALUE argv[argc] = { SWIGV8_STRING_NEW("hello world") };
       func->Call(SWIGV8_CURRENT_CONTEXT(), func, argc, argv);
+     } else {
+      printf("Couldn't find a valid function, call setCallback first.\n");
      }
   }
 
