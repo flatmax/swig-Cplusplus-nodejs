@@ -51,12 +51,19 @@
 
     v8::Local<v8::Function> func = v8::Local<v8::Function>::Cast(fnObj);
     theFunction.Reset(isolate, func);
+  }
 
-    func = v8::Local<v8::Function>::New(isolate, theFunction);
+  void callCallback(){
+    SWIGV8_HANDLESCOPE();
+
+    v8::Isolate* isolate = v8::Isolate::GetCurrent();
+
+    v8::Local<v8::Function> func = v8::Local<v8::Function>::New(isolate, theFunction);
     if (!func.IsEmpty()) {
       const unsigned argc = 1;
       v8::Local<v8::Value> argv[argc] = { v8::String::NewFromUtf8(isolate, "hello world") };
       func->Call(SWIGV8_CURRENT_CONTEXT(), func, argc, argv);
      }
   }
+
 }

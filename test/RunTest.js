@@ -7,3 +7,4 @@ global.fnName = function (str) {
 }
 
 test.setCallback("fnName");
+test.callCallback();
