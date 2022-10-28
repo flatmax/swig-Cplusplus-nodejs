@@ -37,7 +37,7 @@ static SwigV8ReturnValue _wrap_Test_callFn(const SwigV8Arguments &args){SWIGV8_H
            { v8::String::NewFromUtf8(isolate, "hello world") };
       v8::Local<v8::Value> ret;
 
-       func->Call(SWIGV8_CURRENT_CONTEXT(), ret,  argc, argv);
+       func->Call(SWIGV8_CURRENT_CONTEXT(), func,  argc, argv);
    }
  }
  jsresult = SWIGV8_UNDEFINED();
