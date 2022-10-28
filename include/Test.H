@@ -29,13 +29,14 @@
 #ifndef TEST_H_
 #define TEST_H_
 
-#ifdef SWIG_V8_VERSION
-v8::Persistent<v8::Function> theFunction;
-#endif
-
 /** Class to test the wasm setup
 */
 class Test {
+#ifdef SWIG_V8_VERSION
+public:
+  v8::Persistent<v8::Function> theFunction;
+#endif
+
 public:
   /** Constructor
   */

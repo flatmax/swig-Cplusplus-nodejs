@@ -50,7 +50,7 @@
       printf("setupCallback : %s function found\n", fnName.c_str());
 
     v8::Local<v8::Function> func = v8::Local<v8::Function>::Cast(fnObj);
-    theFunction.Reset(isolate, func);
+    self->theFunction.Reset(isolate, func);
   }
 
   void callCallback(){
@@ -58,7 +58,7 @@
 
     v8::Isolate* isolate = v8::Isolate::GetCurrent();
 
-    v8::Local<v8::Function> func = v8::Local<v8::Function>::New(isolate, theFunction);
+    v8::Local<v8::Function> func = v8::Local<v8::Function>::New(isolate, self->theFunction);
     if (!func.IsEmpty()) {
       const unsigned argc = 1;
       v8::Local<v8::Value> argv[argc] = { v8::String::NewFromUtf8(isolate, "hello world") };
