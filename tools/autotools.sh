@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 # Copyright (c) 2017 The Project Foundations Authors. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
