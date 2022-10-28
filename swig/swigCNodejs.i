@@ -52,11 +52,11 @@
     v8::Local<v8::Function> func = v8::Local<v8::Function>::Cast(fnObj);
     theFunction.Reset(isolate, func);
 
-    v8::Local<v8::Function> func2 = v8::Local<v8::Function>::New(isolate, theFunction);
-    if (!func2.IsEmpty()) {
+    func = v8::Local<v8::Function>::New(isolate, theFunction);
+    if (!func.IsEmpty()) {
       const unsigned argc = 1;
       v8::Local<v8::Value> argv[argc] = { v8::String::NewFromUtf8(isolate, "hello world") };
-      func2->Call(SWIGV8_CURRENT_CONTEXT(), func2, argc, argv);
+      func->Call(SWIGV8_CURRENT_CONTEXT(), func, argc, argv);
      }
   }
 }
